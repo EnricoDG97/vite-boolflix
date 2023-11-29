@@ -1,7 +1,7 @@
 <script>
 export default {
     props: {
-        movie: Object,
+        serie: Object,
     },
     methods: {
     getImageUrl(imgName) {
@@ -15,14 +15,14 @@ export default {
     <div>
         <div class="card">
             <div class="card-body">
-                <p>{{movie.title}}</p>
-                <p v-if="movie.title != movie.original_title">{{movie.original_title}}</p>
+                <p>{{serie.name}}</p>
+                <p v-if="serie.name != serie.original_name">{{serie.original_name}}</p>
                 <p v-else>Original</p>
                 <p>
-                    <img :src="getImageUrl(`../assets/img/${this.movie.original_language}.png`)" :alt="movie.original_language">
+                    <img :src="getImageUrl(`../assets/img/${this.serie.original_language}.png`)" :alt="serie.original_language">
                     <!-- {{movie.original_language}} -->
                 </p>
-                <p>{{movie.vote_average}}</p>
+                <p>{{serie.vote_average}}</p>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@ export default {
 
 <style lang="scss" scoped>
     .card {
-        background-color: lightgoldenrodyellow;
+        background-color: lightblue;
     }
     p img {
         width: 1.5rem;

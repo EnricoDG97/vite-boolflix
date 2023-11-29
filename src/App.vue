@@ -12,47 +12,62 @@ export default {
     created() {
         axios
             .get(this.store.apiUrlMovies, {
-            params: {
-                api_key: this.store.myApiKey,
-            }
-        })
+                params: {
+                    api_key: this.store.myApiKey,
+                }
+            })
             .then((resp) => {
-            this.store.movies = resp.data.results;
-            console.log(resp.data.results);
-        });
+                this.store.movies = resp.data.results;
+                console.log(resp.data.results);
+            });
     },
     components: { AppHeader, AppMain },
     methods: {
-      handleSearch() {
-        console.log("search");
-        axios
-            .get(this.store.apiUrlMovies, {
-            params: {
-                api_key: this.store.myApiKey,
-                query: this.store.searchText,
-            }
-        })
-            .then((resp) => {
-            this.store.movies = resp.data.results;
-            console.log(resp.data.results);
-        });
-      }
+        handleSearch() {
+            this.handleMovieSearch();
+            this.handleSerieSearch();
+        },
+        handleMovieSearch() {
+            console.log("search");
+            axios
+                .get(this.store.apiUrlMovies, {
+                    params: {
+                        api_key: this.store.myApiKey,
+                        query: this.store.searchText,
+                    }
+                })
+                .then((resp) => {
+                    this.store.movies = resp.data.results;
+                    console.log(resp.data.results);
+                });
+        },
+        handleSerieSearch() {
+            console.log("search");
+            axios
+                .get(this.store.apiUrlTv, {
+                    params: {
+                        api_key: this.store.myApiKey,
+                        query: this.store.searchText,
+                    }
+                })
+                .then((resp) => {
+                    this.store.series = resp.data.results;
+                    console.log(resp.data.results);
+                });
+        }
     }
 }
 
 </script>
 
 <template>
-  <div class="container">
-    <AppHeader @performSearch="handleSearch" />
-    <AppMain />
-  </div>
-
+    <div class="container">
+        <AppHeader @performSearch="handleSearch" />
+        <AppMain />
+    </div>
 </template>
 
 <style lang="scss">
 @use "./style/general.scss";
 @import "@fortawesome/fontawesome-free/css/all.css";
-
-
 </style>
