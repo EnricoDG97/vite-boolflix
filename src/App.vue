@@ -21,14 +21,32 @@ export default {
             console.log(resp.data.results);
         });
     },
-    components: { AppHeader, AppMain }
+    components: { AppHeader, AppMain },
+    methods: {
+      handleSearch() {
+        console.log("search");
+        axios
+            .get(this.store.apiUrlMovies, {
+            params: {
+                api_key: this.store.myApiKey,
+                query: this.store.searchText,
+            }
+        })
+            .then((resp) => {
+            this.store.movies = resp.data.results;
+            console.log(resp.data.results);
+        });
+      }
+    }
 }
 
 </script>
 
 <template>
-  <AppHeader />
-  <AppMain />
+  <div class="container">
+    <AppHeader @performSearch="handleSearch" />
+    <AppMain />
+  </div>
 
 </template>
 

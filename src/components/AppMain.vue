@@ -1,18 +1,26 @@
 <script>
-import AppCard from './AppCard.vue';
+import AppMovieCard from './AppMovieCard.vue';
 import { store } from "../store.js"
 
-
 export default {
-    components: { AppCard }
+    components: { AppMovieCard },
+    data() {
+        return {
+            store,
+        }
+    }
 }
 </script>
 
 <template>
     <div>
-        appmain
+        AppMain
+        <div class="container row d-flex text-center">
+            <div v-for="(movie, index) in store.movies" :key="movie.id" class="col">
+                <AppMovieCard :movie="movie" />
+            </div>
+        </div>
     </div>
-    <AppCard />
 </template>
 
 <style lang="" scoped>
