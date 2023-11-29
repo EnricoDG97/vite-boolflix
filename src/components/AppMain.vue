@@ -15,14 +15,14 @@ export default {
 <template>
     <div>
         AppMain
-        <div class="container row d-flex text-center">
-            <div v-for="(movie, index) in store.movies" :key="movie.id" class="col">
+        <div class="container row row-cols-5 d-flex text-center">
+            <div v-for="movie in store.movies" :key="movie.id" class="col">
                 <AppMovieCard :movie="movie" />
             </div>
         </div>
     </div>
 </template>
 
-<style lang="" scoped>
+<style lang="scss" scoped>
     
 </style>

@@ -21,6 +21,6 @@ export default {
 </nav>
 </template>
 
-<style lang="" scoped>
+<style lang="scss" scoped>
     
 </style>
