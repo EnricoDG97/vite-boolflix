@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 export default {
     props: {
         serie: Object,
@@ -55,4 +55,4 @@ export default {
         width: 1.5rem;
         height: 1rem;
     }
-</style>
+</style> -->
