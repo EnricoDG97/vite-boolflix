@@ -20,7 +20,6 @@ export default {
         },
         handleImageLoad() {
             this.imageLoaded = true;
-            console.log("handle-image-works");
         },
     },
     computed: {
@@ -45,36 +44,33 @@ export default {
 
 <template>
     <div>
-        <div class="card">
+        <div class="card bg-dark text-light">
             <div class="card-body">
+                <div class="poster-container">
+                    <img v-if="item.poster_path" :src="`https://image.tmdb.org/t/p/w342${item.poster_path}`" class="poster"
+                        alt="">
+                    <img v-else src="../assets/img/no-image.jpg" class="poster-not-found" alt=" preview coming soon">
+                </div>
 
-                <img v-if="item.poster_path" :src="`https://image.tmdb.org/t/p/w342${item.poster_path}`" class="poster"
-                    alt="">
-                <img v-else src="../assets/img/no-image.jpg" class="poster-not-found" alt=" preview coming soon">
+                <div class="text-container">
 
+                    <p>{{ getTitle }}</p>
+                    <p>{{ getOriginalTitle }}</p>
 
-                <p>{{ getTitle }}</p>
-                <p>{{ getOriginalTitle }}</p>
+                    <p>{{ getName }}</p>
+                    <p>{{ getOriginalName }}</p>
 
-                <p>{{ getName }}</p>
-                <p>{{ getOriginalName }}</p>
+                    <p>
+                        <img v-if="imageLoaded" :src="getImageUrl(`../assets/img/${item.original_language}.png`)" alt="" />
+                    <p v-else>{{ item.original_language }}</p>
+                    </p>
 
-                <p>
-                    <img v-if="imageLoaded" :src="getImageUrl(`../assets/img/${item.original_language}.png`)" alt="" />
-                <p v-else>{{ item.original_language }}</p>
-                </p>
-
-                <div>
-                    <i 
-                        v-for="num in rating" 
-                        class="fa-solid fa-star" 
-                        :key="num">
-                    </i>
-                    <i 
-                        v-for="num in (5 - rating)" 
-                        class="fa-regular fa-star" 
-                        :key="num">
-                    </i>
+                    <div>
+                        <i v-for="num in rating" class="fa-solid fa-star" :key="num">
+                        </i>
+                        <i v-for="num in (5 - rating)" class="fa-regular fa-star" :key="num">
+                        </i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,12 +79,15 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-    background-color: lightgoldenrodyellow;
-    height: 500px;
+    height: 550px;
 }
 
-.card-body img {
-    width: 100%;
+.card-body {
+    padding: 0;
+
+    img {
+        width: 100%;
+    }
 }
 
 p img {

@@ -49,13 +49,27 @@ export default {
 </script>
 
 <template>
-    <div class="container">
-        <AppHeader @performSearch="handleSearch" />
-        <AppMain />
+    <div class="container-fluid bg-black">
+        <div class="nav container">
+            <AppHeader @performSearch="handleSearch" />
+        </div>
+        <div class="body container">
+            <AppMain />
+        </div>
+
     </div>
 </template>
 
 <style lang="scss">
 @use "./style/general.scss";
 @import "@fortawesome/fontawesome-free/css/all.css";
+
+.container-fluid {
+    .nav {
+        height: 70px;
+    }
+    .body {
+        height: 5600px;
+    }
+}
 </style>

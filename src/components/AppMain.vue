@@ -21,7 +21,6 @@ export default {
 
 <template>
     <div>
-        AppMain
         <div class="container row row-cols-5 d-flex text-center">
             <div v-for="item in mediaList" :key="item.id" class="col">
                 <AppCard :item="item" />
@@ -38,4 +37,8 @@ export default {
 <style lang="scss" scoped>
 @use "../style/partials/mixin" as *;
 @use "../style/partials/variables" as *;
+div {
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
 </style>
