@@ -1,15 +1,21 @@
 <script>
-import AppMovieCard from './AppMovieCard.vue';
-import AppSerieCard from './AppSerieCard.vue';
+import AppCard from './AppCard.vue';
+// import AppSerieCard from './AppSerieCard.vue';
+
 import { store } from "../store.js";
 
 export default {
-    components: { AppMovieCard, AppSerieCard },
+    components: { AppCard },
     data() {
         return {
             store,
         }
-    }
+    },
+    computed: {
+    mediaList() {
+      return [...this.store.movies, ...this.store.series];
+    },
+  },
 }
 </script>
 
@@ -17,15 +23,15 @@ export default {
     <div>
         AppMain
         <div class="container row row-cols-5 d-flex text-center">
-            <div v-for="movie in store.movies" :key="movie.id" class="col">
-                <AppMovieCard :movie="movie" />
+            <div v-for="item in mediaList" :key="item.id" class="col">
+                <AppCard :item="item" />
             </div>
         </div>
-        <div class="container row row-cols-5 d-flex text-center">
+        <!-- <div class="container row row-cols-5 d-flex text-center">
             <div v-for="serie in store.series" :key="serie.id" class="col">
                 <AppSerieCard :serie="serie" />
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 

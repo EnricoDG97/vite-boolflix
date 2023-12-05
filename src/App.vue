@@ -24,34 +24,22 @@ export default {
     components: { AppHeader, AppMain },
     methods: {
         handleSearch() {
-            this.handleMovieSearch();
-            this.handleSerieSearch();
-        },
-        handleMovieSearch() {
-            console.log("search");
-            axios
-                .get(this.store.apiUrlMovies, {
-                    params: {
-                        api_key: this.store.myApiKey,
-                        query: this.store.searchText,
+            const params = {
+                    api_key: this.store.myApiKey,
+                    query: this.store.searchText,
                     }
-                })
+            axios
+                .get(this.store.apiUrlMovies, { params })
                 .then((resp) => {
                     this.store.movies = resp.data.results;
+                    console.log("ECCO I FILM:");
                     console.log(resp.data.results);
                 });
-        },
-        handleSerieSearch() {
-            console.log("search");
             axios
-                .get(this.store.apiUrlTv, {
-                    params: {
-                        api_key: this.store.myApiKey,
-                        query: this.store.searchText,
-                    }
-                })
+                .get(this.store.apiUrlTv, { params })
                 .then((resp) => {
                     this.store.series = resp.data.results;
+                    console.log("ECCO LE SERIE:");
                     console.log(resp.data.results);
                 });
         }

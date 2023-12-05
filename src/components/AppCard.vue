@@ -1,7 +1,7 @@
 <script>
 export default {
     props: {
-        serie: Object,
+        item: Object,
     },
     data() {
         return {
@@ -12,7 +12,7 @@ export default {
     mounted() {
             const img = new Image();
             img.onload = this.handleImageLoad;
-            img.src = this.getImageUrl(`../assets/img/${this.serie.original_language}.png`);
+            img.src = this.getImageUrl(`../assets/img/${this.item.original_language}.png`);
         },
     methods: {
         getImageUrl(imgName) {
@@ -30,29 +30,36 @@ export default {
     <div>
         <div class="card">
             <div class="card-body">
-                <p>{{ serie.name }}</p>
-                <p v-if="serie.name != serie.original_name">{{ serie.original_name }}</p>
+
+                <p>{{ item.title }}</p>
+                <p v-if="item.title != item.original_title">{{ item.original_title }}</p>
                 <p v-else>Original</p>
+
+                <p>{{ item.name }}</p>
+                <p v-if="item.name != item.original_name">{{ item.original_name }}</p>
+                <p v-else>Original</p>
+                
                 <p>
                     <img 
                         v-if="imageLoaded" 
-                        :src="getImageUrl(`../assets/img/${serie.original_language}.png`)" 
+                        :src="getImageUrl(`../assets/img/${item.original_language}.png`)" 
                         alt="" 
                     />
-                    <p v-else>{{ serie.original_language }}</p>
+                    <p v-else>{{ item.original_language }}</p>
                 </p>
-                <p>{{ serie.vote_average }}</p>
+                <p>{{ item.vote_average }}</p>
             </div>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-    .card {
-        background-color: lightblue;
-    }
-    p img {
-        width: 1.5rem;
-        height: 1rem;
-    }
+.card {
+    background-color: lightgoldenrodyellow;
+}
+
+p img {
+    width: 1.5rem;
+    height: 1rem;
+}
 </style>
