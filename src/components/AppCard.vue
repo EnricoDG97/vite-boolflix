@@ -7,6 +7,7 @@ export default {
         return {
             imageUrl: null,
             imageLoaded: false,
+            showInfo: false,
         };
     },
     mounted() {
@@ -44,15 +45,15 @@ export default {
 
 <template>
     <div>
-        <div class="card bg-dark text-light">
+        <div class="card bg-dark text-light" @mouseenter="showInfo = true" @mouseleave="showInfo = false">
             <div class="card-body">
-                <div class="poster-container">
+                <div v-if="!showInfo" class="poster-container">
                     <img v-if="item.poster_path" :src="`https://image.tmdb.org/t/p/w342${item.poster_path}`" class="poster"
                         alt="">
                     <img v-else src="../assets/img/no-image.jpg" class="poster-not-found" alt=" preview coming soon">
                 </div>
 
-                <div class="text-container">
+                <div v-if="showInfo" class="text-container">
 
                     <p>{{ getTitle }}</p>
                     <p>{{ getOriginalTitle }}</p>
@@ -60,10 +61,10 @@ export default {
                     <p>{{ getName }}</p>
                     <p>{{ getOriginalName }}</p>
 
-                    <p>
-                        <img v-if="imageLoaded" :src="getImageUrl(`../assets/img/${item.original_language}.png`)" alt="" />
-                    <p v-else>{{ item.original_language }}</p>
+                    <p v-if="imageLoaded">
+                        <img :src="getImageUrl(`../assets/img/${item.original_language}.png`)" alt="" />
                     </p>
+                    <p v-else>{{ item.original_language }}</p>
 
                     <div>
                         <i v-for="num in rating" class="fa-solid fa-star" :key="num">
@@ -78,15 +79,51 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use "../style/partials/mixin.scss" as *;
 .card {
-    height: 550px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    &:hover .card-body .poster-container {
+        opacity: 0;
+    }
+    &:hover .card-body .text-container {
+        opacity: 1;
+    }
 }
 
 .card-body {
     padding: 0;
-
-    img {
+    position: relative;
+    .poster-container {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100%;
+        // @import flex(row, center, center);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.5s ease;
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+    .text-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.5s ease;
     }
 }
 
